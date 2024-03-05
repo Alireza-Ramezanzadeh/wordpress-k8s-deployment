@@ -80,7 +80,7 @@ kind delete clusters limoo-cluster
 
     ```bash
     kubectl apply -f namespace.yaml
-    kubectl apply -f manifests/
+    kubectl apply -k ./
     ```
 
    This will deploy MySQL and WordPress applications along with persistent volumes.
