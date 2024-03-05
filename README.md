@@ -87,4 +87,4 @@ To delete the resources created by this deployment and remove the Kind cluster, 
 
 ```bash
 kubectl delete -f manifests/
-kind delete cluster --name wordpress-cluster
+kind delete clusters limoo-cluster
