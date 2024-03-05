@@ -36,7 +36,7 @@ Before you begin, make sure you have the following:
    Create a local Kubernetes cluster using Kind. This will use Docker containers as nodes:
 
     ```bash
-    kind create cluster --name wordpress-cluster
+    kind  create cluster --name limoo-cluster --config=kind-cluster/mycluster.yml
     ```
 
 2. **Set Kubeconfig Context:**
