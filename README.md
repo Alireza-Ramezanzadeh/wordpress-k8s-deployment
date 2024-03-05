@@ -32,21 +32,26 @@ Before you begin, make sure you have the following:
 
 ## Creating a Kind Cluster
 
-1. **Create a Kind Cluster:**
+1. **Clone this repository:**
+   ```bash
+   git clone https://github.com/your-username/wordpress-k8s-deployment.git
+   cd wordpress-k8s-deployment
+   ```
+2. **Create a Kind Cluster:**
    Create a local Kubernetes cluster using Kind. This will use Docker containers as nodes:
 
     ```bash
     kind  create cluster --name limoo-cluster --config=kind-cluster/mycluster.yml
     ```
 
-2. **Set Kubeconfig Context:**
+4. **Set Kubeconfig Context:**
    Kind automatically updates your `kubectl` configuration. Verify the new context:
 
     ```bash
     kubectl config get-contexts
     ```
 
-3. **Verify Cluster Status:**
+5. **Verify Cluster Status:**
    Check the status of your cluster:
 
     ```bash
