@@ -61,7 +61,7 @@ Use the following command to delete  Kind cluster named "limoo-cluster":
 
 ```bash
 kind delete clusters limoo-cluster
-
+```
 ## Getting Started with WordPress Deployment
 
 1. Clone this repository:
