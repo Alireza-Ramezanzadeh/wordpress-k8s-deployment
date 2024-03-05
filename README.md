@@ -6,61 +6,78 @@ This repository provides manifests and instructions for deploying WordPress on a
 
 Before you begin, make sure you have the following:
 
-- **kubectl:** Kubernetes command-line tool. Follow the steps in the README to install it.
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed
 
-## MySQL and WordPress Deployment
+## Installing Kind
 
-This tutorial demonstrates the deployment of WordPress and MySQL with persistent volumes on a Kubernetes cluster. Follow the steps below to deploy the required workloads:
-
-1. **Clone this repository:**
+1. **Download the Kind Binary:**
+   Download the Kind binary from the [Kind releases page](https://github.com/kubernetes-sigs/kind/releases). You can use the following command for Linux:
 
     ```bash
-    git clone https://github.com/your-username/wordpress-k8s-deployment.git
-    cd wordpress-k8s-deployment
+    curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.12.0/kind-linux-amd64
     ```
 
-2. **Create a Kind Cluster:**
-   If you haven't already, create a local Kubernetes cluster using Kind. This will use Docker containers as nodes:
+   Make the binary executable:
+
+    ```bash
+    chmod +x ./kind
+    ```
+
+2. **Move the Binary to a Directory in Your PATH:**
+   Move the `kind` binary to a directory in your PATH (e.g., `/usr/local/bin`):
+
+    ```bash
+    sudo mv ./kind /usr/local/bin/kind
+    ```
+
+## Creating a Kind Cluster
+
+1. **Create a Kind Cluster:**
+   Create a local Kubernetes cluster using Kind. This will use Docker containers as nodes:
 
     ```bash
     kind create cluster --name wordpress-cluster
     ```
 
-3. **Set Kubeconfig Context:**
+2. **Set Kubeconfig Context:**
    Kind automatically updates your `kubectl` configuration. Verify the new context:
 
     ```bash
     kubectl config get-contexts
     ```
 
-4. **Apply the MySQL and WordPress Manifests:**
-   Deploy MySQL and WordPress applications along with persistent volumes using the manifests provided in the repository:
+3. **Verify Cluster Status:**
+   Check the status of your cluster:
+
+    ```bash
+    kubectl cluster-info
+    ```
+
+   It should show the Kubernetes master and core DNS services.
+
+## Getting Started with WordPress Deployment
+
+1. Clone this repository:
+
+    ```bash
+    git clone https://github.com/your-username/wordpress-k8s-deployment.git
+    cd wordpress-k8s-deployment
+    ```
+
+2. Deploy WordPress and MySQL:
 
     ```bash
     kubectl apply -f manifests/
     ```
 
-5. **Access WordPress:**
-   Get the WordPress service IP:
+   This will deploy MySQL and WordPress applications along with persistent volumes.
 
-    ```bash
-    kubectl get svc wordpress
-    ```
+3. Access WordPress in your web browser using the provided IP and port.
 
-   Access WordPress in your web browser using the provided IP and port.
+## Cleaning Up
 
-6. **Clean Up:**
-   To delete the resources created by this deployment and remove the Kind cluster, run:
+To delete the resources created by this deployment and remove the Kind cluster, run:
 
-    ```bash
-    kubectl delete -f manifests/
-    kind delete cluster --name wordpress-cluster
-    ```
-
-## Contributing
-
-Feel free to contribute to this project. Open issues or submit pull requests for any improvements or bug fixes.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+```bash
+kubectl delete -f manifests/
+kind delete cluster --name wordpress-cluster
