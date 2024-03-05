@@ -79,6 +79,7 @@ kind delete clusters limoo-cluster
 2. Deploy WordPress and MySQL:
 
     ```bash
+    kubectl apply -f namespace.yaml
     kubectl apply -f manifests/
     ```
 
