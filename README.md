@@ -81,6 +81,30 @@ kind delete clusters limoo-cluster
 
 3. Access WordPress in your web browser using the provided IP and port.
 
+## Expose wordpress with public ip
+Considering that our cluster is up with Kind and each of our nodes is a Docker container, we can expose WordPress with a public IP with the following commands:
+
+1. find control plane node ip address container
+```bash
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' limoo-cluster-control-plane
+```
+2. find NodePort:
+```bash
+kubectl get services wordpress -n wordpress
+```
+2. proxy with iptable:
+``` bash
+sysctl net.ipv4.ip_forward=1
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+iptables -t nat -A PREROUTING -p tcp --dport <web-port> -j DNAT --to-destination <control-plane-ip>:<NodePort>
+iptables -t nat -A PREROUTING -p udp --dport <web-port> -j DNAT --to-destination <control-plane-ip>:<NodePort>
+
+iptables -t nat -A POSTROUTING -j MASQUERADE
+/sbin/iptables-save
+
+```
 ## Cleaning Up
 
 To delete the resources created by this deployment and remove the Kind cluster, run:
