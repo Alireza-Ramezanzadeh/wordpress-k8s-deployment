@@ -55,6 +55,13 @@ Before you begin, make sure you have the following:
 
    It should show the Kubernetes master and core DNS services.
 
+### Delete Kind Cluster
+
+Use the following command to delete  Kind cluster named "limoo-cluster":
+
+```bash
+kind delete clusters limoo-cluster
+
 ## Getting Started with WordPress Deployment
 
 1. Clone this repository:
