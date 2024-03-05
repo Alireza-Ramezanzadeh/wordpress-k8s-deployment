@@ -4,6 +4,7 @@ metadata:
   name: wordpress-mysql
   labels:
     app: wordpress
+  namespace: wordpress
 spec:
   ports:
     - port: 3306
@@ -18,6 +19,7 @@ metadata:
   name: mysql-pv-claim
   labels:
     app: wordpress
+  namespace: wordpress
 spec:
   accessModes:
     - ReadWriteOnce
@@ -31,6 +33,7 @@ metadata:
   name: wordpress-mysql
   labels:
     app: wordpress
+  namespace: wordpress
 spec:
   selector:
     matchLabels:
